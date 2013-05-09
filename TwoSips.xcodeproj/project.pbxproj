@@ -13,6 +13,8 @@
 		E9E53C97173C326B002481C1 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = E9E53C95173C326B002481C1 /* Credits.rtf */; };
 		E9E53C9A173C326B002481C1 /* TKAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E9E53C99173C326B002481C1 /* TKAppDelegate.m */; };
 		E9E53C9D173C326C002481C1 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9E53C9B173C326C002481C1 /* MainMenu.xib */; };
+		E9E53CA4173C390C002481C1 /* drophere.png in Resources */ = {isa = PBXBuildFile; fileRef = E9E53CA3173C390C002481C1 /* drophere.png */; };
+		E9E53CA7173C4410002481C1 /* AppIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = E9E53CA6173C4410002481C1 /* AppIcon.icns */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +31,8 @@
 		E9E53C98173C326B002481C1 /* TKAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TKAppDelegate.h; sourceTree = "<group>"; };
 		E9E53C99173C326B002481C1 /* TKAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TKAppDelegate.m; sourceTree = "<group>"; };
 		E9E53C9C173C326C002481C1 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		E9E53CA3173C390C002481C1 /* drophere.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = drophere.png; path = TwoSips/Resources/drophere.png; sourceTree = "<group>"; };
+		E9E53CA6173C4410002481C1 /* AppIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = AppIcon.icns; path = TwoSips/Resources/AppIcon.icns; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -48,6 +52,7 @@
 			children = (
 				E9E53C8C173C326B002481C1 /* TwoSips */,
 				E9E53C85173C326B002481C1 /* Frameworks */,
+				E9E53CA5173C3915002481C1 /* Resources */,
 				E9E53C84173C326B002481C1 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -100,6 +105,15 @@
 				E9E53C95173C326B002481C1 /* Credits.rtf */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		E9E53CA5173C3915002481C1 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				E9E53CA6173C4410002481C1 /* AppIcon.icns */,
+				E9E53CA3173C390C002481C1 /* drophere.png */,
+			);
+			name = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -157,6 +171,8 @@
 				E9E53C91173C326B002481C1 /* InfoPlist.strings in Resources */,
 				E9E53C97173C326B002481C1 /* Credits.rtf in Resources */,
 				E9E53C9D173C326C002481C1 /* MainMenu.xib in Resources */,
+				E9E53CA4173C390C002481C1 /* drophere.png in Resources */,
+				E9E53CA7173C4410002481C1 /* AppIcon.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

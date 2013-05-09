@@ -12,7 +12,23 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
-    // Insert code here to initialize your application
+    // TODO: Or use last one used (read from plist)
+    [_cmbOutputFormat selectItemAtIndex:3];
+}
+
+- (IBAction)handleOpenFileDialogClicked:(id)sender
+{
+    
+}
+
+- (IBAction)handleConvertClicked:(id)sender
+{
+    
+}
+
+- (IBAction)handleResourceDropped:(id)sender
+{
+    
 }
 
 @end

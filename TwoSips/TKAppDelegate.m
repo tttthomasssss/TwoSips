@@ -7,6 +7,7 @@
 //
 
 #import "TKAppDelegate.h"
+#import "TKImageConverter.h"
 
 @implementation TKAppDelegate
 
@@ -14,8 +15,11 @@
 {
     // TODO: Or use last one used (read from plist)
     [_cmbOutputFormat selectItemAtIndex:3];
+    
+    _imgConverter = [[TKImageConverter alloc] init];
 }
 
+# pragma mark - UI Actions
 - (IBAction)handleOpenFileDialogClicked:(id)sender
 {
     

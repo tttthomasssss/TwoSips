@@ -11,6 +11,8 @@
 
 #import <Cocoa/Cocoa.h>
 
+@class TKImageConverter;
+
 @interface TKAppDelegate : NSObject <NSApplicationDelegate>
 
 @property (assign) IBOutlet NSWindow *window;
@@ -24,6 +26,8 @@
 @property (assign) IBOutlet NSTextField *lblProgress;
 @property (assign) IBOutlet NSProgressIndicator *piProgress;
 @property (assign) IBOutlet NSTextField *lblProgressText;
+
+@property (strong, readonly) TKImageConverter *imgConverter;
 
 - (IBAction)handleOpenFileDialogClicked:(id)sender;
 

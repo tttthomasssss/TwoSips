@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E9028BEF173E6D1E00F3DF6E /* TKImageConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = E9028BEE173E6D1E00F3DF6E /* TKImageConverter.m */; };
+		E9028BF4173E6FB400F3DF6E /* TKImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = E9028BF3173E6FB400F3DF6E /* TKImageView.m */; };
+		E9D68FCD173EBCC1003C0526 /* TKConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = E9D68FCC173EBCC1003C0526 /* TKConstants.m */; };
+		E9D68FD0173EBF82003C0526 /* NSFileManager+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = E9D68FCF173EBF82003C0526 /* NSFileManager+Utils.m */; };
+		E9D68FD3173EC14B003C0526 /* NSImage+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = E9D68FD2173EC14B003C0526 /* NSImage+Utils.m */; };
 		E9E53C87173C326B002481C1 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9E53C86173C326B002481C1 /* Cocoa.framework */; };
 		E9E53C91173C326B002481C1 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E9E53C8F173C326B002481C1 /* InfoPlist.strings */; };
 		E9E53C93173C326B002481C1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E9E53C92173C326B002481C1 /* main.m */; };
@@ -18,6 +23,16 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E9028BED173E6D1E00F3DF6E /* TKImageConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TKImageConverter.h; sourceTree = "<group>"; };
+		E9028BEE173E6D1E00F3DF6E /* TKImageConverter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TKImageConverter.m; sourceTree = "<group>"; };
+		E9028BF2173E6FB400F3DF6E /* TKImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TKImageView.h; sourceTree = "<group>"; };
+		E9028BF3173E6FB400F3DF6E /* TKImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TKImageView.m; sourceTree = "<group>"; };
+		E9D68FCB173EBCC1003C0526 /* TKConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TKConstants.h; sourceTree = "<group>"; };
+		E9D68FCC173EBCC1003C0526 /* TKConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TKConstants.m; sourceTree = "<group>"; };
+		E9D68FCE173EBF82003C0526 /* NSFileManager+Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSFileManager+Utils.h"; sourceTree = "<group>"; };
+		E9D68FCF173EBF82003C0526 /* NSFileManager+Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSFileManager+Utils.m"; sourceTree = "<group>"; };
+		E9D68FD1173EC14B003C0526 /* NSImage+Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSImage+Utils.h"; sourceTree = "<group>"; };
+		E9D68FD2173EC14B003C0526 /* NSImage+Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSImage+Utils.m"; sourceTree = "<group>"; };
 		E9E53C83173C326B002481C1 /* TwoSips.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TwoSips.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9E53C86173C326B002481C1 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		E9E53C89173C326B002481C1 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -47,6 +62,33 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E9028BF0173E6D2B00F3DF6E /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				E9D68FD1173EC14B003C0526 /* NSImage+Utils.h */,
+				E9D68FD2173EC14B003C0526 /* NSImage+Utils.m */,
+				E9E53C98173C326B002481C1 /* TKAppDelegate.h */,
+				E9E53C99173C326B002481C1 /* TKAppDelegate.m */,
+				E9028BED173E6D1E00F3DF6E /* TKImageConverter.h */,
+				E9028BEE173E6D1E00F3DF6E /* TKImageConverter.m */,
+				E9028BF2173E6FB400F3DF6E /* TKImageView.h */,
+				E9028BF3173E6FB400F3DF6E /* TKImageView.m */,
+				E9D68FCB173EBCC1003C0526 /* TKConstants.h */,
+				E9D68FCC173EBCC1003C0526 /* TKConstants.m */,
+				E9D68FCE173EBF82003C0526 /* NSFileManager+Utils.h */,
+				E9D68FCF173EBF82003C0526 /* NSFileManager+Utils.m */,
+			);
+			name = Classes;
+			sourceTree = "<group>";
+		};
+		E9028BF1173E6D3600F3DF6E /* GUI */ = {
+			isa = PBXGroup;
+			children = (
+				E9E53C9B173C326C002481C1 /* MainMenu.xib */,
+			);
+			name = GUI;
+			sourceTree = "<group>";
+		};
 		E9E53C7A173C326A002481C1 = {
 			isa = PBXGroup;
 			children = (
@@ -87,9 +129,8 @@
 		E9E53C8C173C326B002481C1 /* TwoSips */ = {
 			isa = PBXGroup;
 			children = (
-				E9E53C98173C326B002481C1 /* TKAppDelegate.h */,
-				E9E53C99173C326B002481C1 /* TKAppDelegate.m */,
-				E9E53C9B173C326C002481C1 /* MainMenu.xib */,
+				E9028BF0173E6D2B00F3DF6E /* Classes */,
+				E9028BF1173E6D3600F3DF6E /* GUI */,
 				E9E53C8D173C326B002481C1 /* Supporting Files */,
 			);
 			path = TwoSips;
@@ -185,6 +226,11 @@
 			files = (
 				E9E53C93173C326B002481C1 /* main.m in Sources */,
 				E9E53C9A173C326B002481C1 /* TKAppDelegate.m in Sources */,
+				E9028BEF173E6D1E00F3DF6E /* TKImageConverter.m in Sources */,
+				E9028BF4173E6FB400F3DF6E /* TKImageView.m in Sources */,
+				E9D68FCD173EBCC1003C0526 /* TKConstants.m in Sources */,
+				E9D68FD0173EBF82003C0526 /* NSFileManager+Utils.m in Sources */,
+				E9D68FD3173EC14B003C0526 /* NSImage+Utils.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -320,6 +366,7 @@
 				E9E53CA2173C326C002481C1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

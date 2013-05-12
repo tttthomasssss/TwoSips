@@ -14,6 +14,10 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
+    if (![[NSUserDefaults standardUserDefaults] outputImageType]) {
+        [_cmbOutputFormat selectItemAtIndex:0];
+    }
+    
     _imgConverter = [[TKImageConverter alloc] init];
 }
 

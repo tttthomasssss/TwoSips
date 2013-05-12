@@ -10,6 +10,7 @@
 		E9028BEF173E6D1E00F3DF6E /* TKImageConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = E9028BEE173E6D1E00F3DF6E /* TKImageConverter.m */; };
 		E9028BF4173E6FB400F3DF6E /* TKImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = E9028BF3173E6FB400F3DF6E /* TKImageView.m */; };
 		E94EE410173FFB330099F832 /* TKUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = E94EE40F173FFB330099F832 /* TKUtils.m */; };
+		E96D98CB174040A000BFF70E /* NSUserDefaults+Accessor.m in Sources */ = {isa = PBXBuildFile; fileRef = E96D98CA174040A000BFF70E /* NSUserDefaults+Accessor.m */; };
 		E9D68FCD173EBCC1003C0526 /* TKConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = E9D68FCC173EBCC1003C0526 /* TKConstants.m */; };
 		E9D68FD0173EBF82003C0526 /* NSFileManager+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = E9D68FCF173EBF82003C0526 /* NSFileManager+Utils.m */; };
 		E9D68FD3173EC14B003C0526 /* NSImage+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = E9D68FD2173EC14B003C0526 /* NSImage+Utils.m */; };
@@ -30,6 +31,8 @@
 		E9028BF3173E6FB400F3DF6E /* TKImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TKImageView.m; sourceTree = "<group>"; };
 		E94EE40E173FFB330099F832 /* TKUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TKUtils.h; sourceTree = "<group>"; };
 		E94EE40F173FFB330099F832 /* TKUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TKUtils.m; sourceTree = "<group>"; };
+		E96D98C9174040A000BFF70E /* NSUserDefaults+Accessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSUserDefaults+Accessor.h"; sourceTree = "<group>"; };
+		E96D98CA174040A000BFF70E /* NSUserDefaults+Accessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSUserDefaults+Accessor.m"; sourceTree = "<group>"; };
 		E9D68FCB173EBCC1003C0526 /* TKConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TKConstants.h; sourceTree = "<group>"; };
 		E9D68FCC173EBCC1003C0526 /* TKConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TKConstants.m; sourceTree = "<group>"; };
 		E9D68FCE173EBF82003C0526 /* NSFileManager+Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSFileManager+Utils.h"; sourceTree = "<group>"; };
@@ -68,20 +71,14 @@
 		E9028BF0173E6D2B00F3DF6E /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				E9D68FD1173EC14B003C0526 /* NSImage+Utils.h */,
-				E9D68FD2173EC14B003C0526 /* NSImage+Utils.m */,
+				E96D98C71740404800BFF70E /* Categories */,
+				E96D98C81740405200BFF70E /* Utils */,
 				E9E53C98173C326B002481C1 /* TKAppDelegate.h */,
 				E9E53C99173C326B002481C1 /* TKAppDelegate.m */,
 				E9028BED173E6D1E00F3DF6E /* TKImageConverter.h */,
 				E9028BEE173E6D1E00F3DF6E /* TKImageConverter.m */,
 				E9028BF2173E6FB400F3DF6E /* TKImageView.h */,
 				E9028BF3173E6FB400F3DF6E /* TKImageView.m */,
-				E9D68FCB173EBCC1003C0526 /* TKConstants.h */,
-				E9D68FCC173EBCC1003C0526 /* TKConstants.m */,
-				E9D68FCE173EBF82003C0526 /* NSFileManager+Utils.h */,
-				E9D68FCF173EBF82003C0526 /* NSFileManager+Utils.m */,
-				E94EE40E173FFB330099F832 /* TKUtils.h */,
-				E94EE40F173FFB330099F832 /* TKUtils.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -92,6 +89,30 @@
 				E9E53C9B173C326C002481C1 /* MainMenu.xib */,
 			);
 			name = GUI;
+			sourceTree = "<group>";
+		};
+		E96D98C71740404800BFF70E /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				E9D68FD1173EC14B003C0526 /* NSImage+Utils.h */,
+				E9D68FD2173EC14B003C0526 /* NSImage+Utils.m */,
+				E9D68FCE173EBF82003C0526 /* NSFileManager+Utils.h */,
+				E9D68FCF173EBF82003C0526 /* NSFileManager+Utils.m */,
+				E96D98C9174040A000BFF70E /* NSUserDefaults+Accessor.h */,
+				E96D98CA174040A000BFF70E /* NSUserDefaults+Accessor.m */,
+			);
+			name = Categories;
+			sourceTree = "<group>";
+		};
+		E96D98C81740405200BFF70E /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				E9D68FCB173EBCC1003C0526 /* TKConstants.h */,
+				E9D68FCC173EBCC1003C0526 /* TKConstants.m */,
+				E94EE40E173FFB330099F832 /* TKUtils.h */,
+				E94EE40F173FFB330099F832 /* TKUtils.m */,
+			);
+			name = Utils;
 			sourceTree = "<group>";
 		};
 		E9E53C7A173C326A002481C1 = {
@@ -237,6 +258,7 @@
 				E9D68FD0173EBF82003C0526 /* NSFileManager+Utils.m in Sources */,
 				E9D68FD3173EC14B003C0526 /* NSImage+Utils.m in Sources */,
 				E94EE410173FFB330099F832 /* TKUtils.m in Sources */,
+				E96D98CB174040A000BFF70E /* NSUserDefaults+Accessor.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

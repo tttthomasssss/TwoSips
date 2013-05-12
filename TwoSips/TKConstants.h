@@ -10,3 +10,4 @@
 
 extern NSString * const kURLType;
 extern NSString * const kOutputFolderName;
+extern NSString * const kOutputImageType;

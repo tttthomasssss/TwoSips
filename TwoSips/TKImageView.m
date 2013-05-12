@@ -26,6 +26,8 @@
 
 - (void)awakeFromNib
 {
+    //[super unregisterDraggedTypes];
+    //[self registerForDraggedTypes:[NSArray arrayWithObjects:NSFilenamesPboardType, NSTIFFPboardType, nil]];
     //_image = [NSImage imageNamed:@"drophere.png"];
     _imgConverter = [[TKImageConverter alloc] init];
 }

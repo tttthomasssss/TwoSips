@@ -9,4 +9,4 @@
 #import "TKConstants.h"
 
 NSString * const kURLType            = @"public.file-url";
-NSString * const kOutputFolderName   = @"TwoSips Output";
+NSString * const kOutputFolderName   = @"TwoSips-Output";

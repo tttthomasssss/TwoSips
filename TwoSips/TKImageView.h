@@ -12,6 +12,7 @@
 
 @interface TKImageView : NSImageView
 
-@property(strong, readonly) TKImageConverter *imgConverter;
+//@property(strong, readwrite, nonatomic) NSImage *image;
+@property(strong, readonly, nonatomic) TKImageConverter *imgConverter;
 
 @end

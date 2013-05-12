@@ -24,13 +24,10 @@
 
 @implementation TKImageView
 
-- (id)initWithFrame:(NSRect)frameRect
+- (void)awakeFromNib
 {
-    if ((self = [super initWithFrame:frameRect])) {
-        _imgConverter = [[TKImageConverter alloc] init];
-    }
-    
-    return self;
+    //_image = [NSImage imageNamed:@"drophere.png"];
+    _imgConverter = [[TKImageConverter alloc] init];
 }
 
 - (BOOL)acceptsFirstResponder
@@ -56,9 +53,6 @@
     if ([self validFiles:[thePastboard pasteboardItems]]) {
         dragOp = NSDragOperationCopy;
     }
-    
-    NSLog(@"VALID STUFF: %d", [self validFiles:[thePastboard pasteboardItems]]);
-    
     NSLog(@"Dragging entered!");
     
     return dragOp;
@@ -69,6 +63,8 @@
     NSPasteboard *thePasteboard = [sender draggingPasteboard];
     BOOL success = NO;
     
+    NSLog(@"Performing Drag Operation...");
+    
     if ([self validFiles:[thePasteboard pasteboardItems]]) {
         
         NSArray *imgPathURLs = [self getImagePaths:[thePasteboard pasteboardItems]];
@@ -78,8 +74,20 @@
         
         NSInteger index = [[delegate cmbOutputFormat] indexOfSelectedItem];
         
-        success = [_imgConverter convertImages:imgs toType:[[delegate cmbOutputFormat] itemObjectValueAtIndex:index] destinationDirectory:nil];
+        NSURL *parentDir = [[imgPathURLs objectAtIndex:0] URLByDeletingLastPathComponent];
+        
+        NSLog(@"IMAGE PATH URLS: %@", imgPathURLs);
+        NSLog(@"PARENT DIR: %@", parentDir);
+        NSLog(@"TARGET DIR: %@", [parentDir URLByAppendingPathComponent:kOutputFolderName isDirectory:YES]);
+        NSLog(@"TARGET FILE TYPE: %@", [[[delegate cmbOutputFormat] itemObjectValueAtIndex:index] lowercaseString]);
+        NSLog(@"IMG CONVERTER: %@", _imgConverter);
+        
+        success = [_imgConverter convertImages:imgs toType:[[[delegate cmbOutputFormat] itemObjectValueAtIndex:index] lowercaseString] destinationDirectoryURL:[parentDir URLByAppendingPathComponent:kOutputFolderName isDirectory:YES]];
+        
+        NSLog(@"SUCCESS: %d", success);
     }
+    
+    NSLog(@"Drag Operation finished!");
     
     return success;
 }
@@ -87,8 +95,6 @@
 - (void)draggingExited:(id<NSDraggingInfo>)sender
 {
     [self setFocusRingType:NSFocusRingTypeDefault];
-    NSLog(@"PARENT FOLDER: %@", [@"/etc/usr/bin/" stringByDeletingLastPathComponent]);
-    NSLog(@"PARENT FOLDER OF FILE: %@", [@"/etc/usr/bin.txt" stringByDeletingLastPathComponent]);
     NSLog(@"Dragging exited!");
 }
 
@@ -168,9 +174,12 @@
 - (NSArray *)getImages:(NSArray *)imagePathURLs
 {
     NSMutableArray *imgs = [NSMutableArray array];
+    NSImage *theImage = nil;
     
     for (NSURL *theURL in imagePathURLs) {
-        [imgs addObject:[NSImage imageWithContentsOfURL:theURL]];
+        theImage = [NSImage imageWithContentsOfURL:theURL];
+        [theImage setName:[[theURL lastPathComponent] stringByDeletingPathExtension]];
+        [imgs addObject:theImage];
     }
     
     return (NSArray *)imgs;

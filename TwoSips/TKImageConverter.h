@@ -10,7 +10,7 @@
 
 @interface TKImageConverter : NSObject
 
-- (BOOL)convertImages:(NSArray *)images toType:(NSString *)imgFileType destinationDirectory:(NSURL *)dirURL;
-- (BOOL)convertImage:(NSImage *)image toType:(NSString *)imgFileType destinationDirectory:(NSURL *)dirURL;
+- (BOOL)convertImages:(NSArray *)images toType:(NSString *)imgFileType destinationDirectoryURL:(NSURL *)dirURL;
+- (BOOL)convertImage:(NSImage *)image toType:(NSString *)imgFileType destinationDirectoryURL:(NSURL *)dirURL;
 
 @end

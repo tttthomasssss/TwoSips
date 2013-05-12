@@ -14,17 +14,7 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
-    // TODO: Or use last one used (read from plist)
-    [_cmbOutputFormat selectItemAtIndex:3];
-    
     _imgConverter = [[TKImageConverter alloc] init];
-}
-
-// TODO: Prefs binding not yet working
-- (void)applicationWillTerminate:(NSNotification *)notification
-{
-    NSInteger index = [_cmbOutputFormat indexOfSelectedItem];
-    [[NSUserDefaults standardUserDefaults] setOutputImageType:[_cmbOutputFormat itemObjectValueAtIndex:index]];
 }
 
 # pragma mark - UI Actions

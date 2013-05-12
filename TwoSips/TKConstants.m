@@ -10,4 +10,4 @@
 
 NSString * const kURLType           = @"public.file-url";
 NSString * const kOutputFolderName  = @"TwoSips-Output";
-NSString * const kOutputImageType   = @"selectedTargetImageTypeIndex";
+NSString * const kOutputImageType   = @"outputImageType";

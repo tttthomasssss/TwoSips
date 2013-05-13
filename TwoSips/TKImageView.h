@@ -20,9 +20,9 @@
 // http://stackoverflow.com/questions/2203542/drawing-a-nsimage-into-nsview-subclass
 // Draw border
 // http://stackoverflow.com/questions/5004960/adding-border-and-rounded-rect-in-the-nsview
-@interface TKImageView : NSImageView
+@interface TKImageView : NSView//NSImageView
 
-//@property(strong, readwrite, nonatomic) NSImage *image;
+@property(strong, readonly, nonatomic) NSImage *image;
 @property(strong, readonly, nonatomic) TKImageConverter *imgConverter;
 
 @end

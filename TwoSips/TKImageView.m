@@ -11,6 +11,7 @@
 #import "TKAppDelegate.h"
 #import "NSFileManager+Utils.h"
 #import "NSImage+Utils.h"
+#import "NSUserDefaults+Accessor.h"
 
 @interface TKImageView (Private)
 - (BOOL)isSupportedFileType:(NSURL *)fileURL;
@@ -20,16 +21,24 @@
 - (NSString *)predicateString;
 - (NSArray *)getImagePaths:(NSArray *)pasteboardItems;
 - (NSArray *)getImages:(NSArray *)imagePathURLs;
+- (NSArray *)expandPathURLs:(NSArray *)imgFiles withBaseURL:(NSURL *)baseURL;
 @end
 
 @implementation TKImageView
 
 - (void)awakeFromNib
 {
-    //[super unregisterDraggedTypes];
-    //[self registerForDraggedTypes:[NSArray arrayWithObjects:NSFilenamesPboardType, NSTIFFPboardType, nil]];
-    //_image = [NSImage imageNamed:@"drophere.png"];
+    [self registerForDraggedTypes:[NSArray arrayWithObjects:NSFilenamesPboardType, NSTIFFPboardType, nil]];
+    _image = [NSImage imageNamed:@"drophere.png"];
     _imgConverter = [[TKImageConverter alloc] init];
+}
+
+- (void)drawRect:(NSRect)dirtyRect {
+    
+    NSRect bounds = [self bounds];
+    [super drawRect:dirtyRect];
+    //[_image compositeToPoint:bounds.origin operation:NSCompositeSourceOver];
+    [_image drawAtPoint:bounds.origin fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1];
 }
 
 - (BOOL)acceptsFirstResponder
@@ -70,21 +79,19 @@
     if ([self validFiles:[thePasteboard pasteboardItems]]) {
         
         NSArray *imgPathURLs = [self getImagePaths:[thePasteboard pasteboardItems]];
+        NSLog(@"IMG PATHS URLS FINISHED!");
         NSArray *imgs = [self getImages:imgPathURLs];
-        
-        TKAppDelegate *delegate = (TKAppDelegate *)[NSApp delegate];
-        
-        NSInteger index = [[delegate cmbOutputFormat] indexOfSelectedItem];
+        NSLog(@"IMGS FINISHED");
         
         NSURL *parentDir = [[imgPathURLs objectAtIndex:0] URLByDeletingLastPathComponent];
         
+        NSLog(@"SELECTED STUFF: %@", [[NSUserDefaults standardUserDefaults] outputImageType]);
         NSLog(@"IMAGE PATH URLS: %@", imgPathURLs);
         NSLog(@"PARENT DIR: %@", parentDir);
         NSLog(@"TARGET DIR: %@", [parentDir URLByAppendingPathComponent:kOutputFolderName isDirectory:YES]);
-        NSLog(@"TARGET FILE TYPE: %@", [[[delegate cmbOutputFormat] itemObjectValueAtIndex:index] lowercaseString]);
         NSLog(@"IMG CONVERTER: %@", _imgConverter);
         
-        success = [_imgConverter convertImages:imgs toType:[[[delegate cmbOutputFormat] itemObjectValueAtIndex:index] lowercaseString] destinationDirectoryURL:[parentDir URLByAppendingPathComponent:kOutputFolderName isDirectory:YES]];
+        success = [_imgConverter convertImages:imgs toType:[[[NSUserDefaults standardUserDefaults] outputImageType] lowercaseString] destinationDirectoryURL:[parentDir URLByAppendingPathComponent:kOutputFolderName isDirectory:YES]];
         
         NSLog(@"SUCCESS: %d", success);
     }
@@ -120,6 +127,7 @@
 
 - (BOOL)validFiles:(NSArray *)pasteboardItems
 {
+    NSLog(@"CHECKING VALIDFILES...");
     BOOL valid = NO;
     NSInteger i = 0;
     NSURL *theURL = nil;
@@ -137,6 +145,7 @@
         i++;
     }
     
+    NSLog(@"VALID FILES CHECKING FINISHED: %d", valid);
     return valid;
 }
 
@@ -149,7 +158,7 @@
 - (NSString *)predicateString
 {
     // Even uglier but how cares???
-    return @"self ENDSWITH '.bmp' OR self ENDSWITH '.gif' OR self ENDSWITH '.jpg' OR self ENDSWITH '.jpeg' OR self ENDSWITH '.png' OR self ENDSWITH '.tif' OR self ENDSWITH '.tiff'";
+    return @"self ENDSWITH[c] '.bmp' OR self ENDSWITH[c] '.gif' OR self ENDSWITH[c] '.jpg' OR self ENDSWITH[c] '.jpeg' OR self ENDSWITH[c] '.png' OR self ENDSWITH[c] '.tif' OR self ENDSWITH[c] '.tiff'";
 }
 
 - (NSArray *)getImagePaths:(NSArray *)pasteboardItems
@@ -162,7 +171,8 @@
         
         if ([[NSFileManager defaultManager] isDirectory:theURL]) {
             NSArray *dirFiles = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:[theURL path] error:nil];
-            [imgPaths addObjectsFromArray:[dirFiles filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:[self predicateString]]]];
+            NSArray *imgFiles = [dirFiles filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:[self predicateString]]];
+            [imgPaths addObjectsFromArray:[self expandPathURLs:imgFiles withBaseURL:theURL]];
         } else {
             if ([self isSupportedFileType:theURL]) {
                 [imgPaths addObject:theURL];
@@ -181,10 +191,23 @@
     for (NSURL *theURL in imagePathURLs) {
         theImage = [NSImage imageWithContentsOfURL:theURL];
         [theImage setName:[[theURL lastPathComponent] stringByDeletingPathExtension]];
-        [imgs addObject:theImage];
+        if (theImage) {
+            [imgs addObject:theImage];
+        }
     }
     
     return (NSArray *)imgs;
+}
+
+- (NSArray *)expandPathURLs:(NSArray *)imgFiles withBaseURL:(NSURL *)baseURL
+{
+    NSMutableArray *fullPathURLs = [NSMutableArray array];
+    
+    for (NSString *fname in imgFiles) {
+        [fullPathURLs addObject:[baseURL URLByAppendingPathComponent:fname]];
+    }
+    
+    return (NSArray *)fullPathURLs;
 }
 
 @end

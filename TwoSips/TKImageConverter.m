@@ -32,20 +32,10 @@
     NSData *convertedData = [bitmapRep representationUsingType:[TKUtils bitmapImageFileTypeForExtension:imgFileType] properties:nil];
     
     NSString *convertedFileName = [[image name] stringByAppendingPathExtension:imgFileType];
-    
-    NSLog(@"CONVERTED FILENAME: %@", convertedFileName);
-    
     NSURL *targetFileURL = [dirURL URLByAppendingPathComponent:convertedFileName];
     
-    NSLog(@"TARGET FILE URL: %@", targetFileURL);
-    
     BOOL success = [[NSFileManager defaultManager] createDirectoryAtURL:dirURL withIntermediateDirectories:YES attributes:nil error:nil];
-    
-    NSLog(@"CREATE DIR SUCCESS: %d", success);
-    
     success = success && [convertedData writeToURL:targetFileURL atomically:YES];
-    
-    NSLog(@"WRITE FILE SUCCESS: %d", success);
     
     return success;
 }

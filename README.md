@@ -1,7 +1,9 @@
 TwoSips
 =======
 
-Quick &amp; Easy image conversion tool for OS X
+<p align="center">
+  <em>The Quick &amp; Easy image conversion tool for OS X</em>
+</p>
 
 How does it work?
 -----------------

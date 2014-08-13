@@ -107,7 +107,7 @@
 - (BOOL)performDragOperation:(id<NSDraggingInfo>)sender
 {
     NSPasteboard *thePasteboard = [sender draggingPasteboard];
-    BOOL success = NO;
+    //BOOL success = NO;
     
     if ([self validFiles:[thePasteboard pasteboardItems]]) {
         
@@ -117,10 +117,15 @@
         NSURL *parentDir = [[imgPathURLs objectAtIndex:0] URLByDeletingLastPathComponent];
         
         // Probably dispatch async
-        success = [_imgConverter convertImages:imgs toType:[[[NSUserDefaults standardUserDefaults] outputImageType] lowercaseString] destinationDirectoryURL:[parentDir URLByAppendingPathComponent:kOutputFolderName isDirectory:YES]];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [[[NSApp delegate] lblProgressText] setStringValue:@"Converting..."];
+            [_imgConverter convertImages:imgs toType:[[[NSUserDefaults standardUserDefaults] outputImageType] lowercaseString] destinationDirectoryURL:[parentDir URLByAppendingPathComponent:kOutputFolderName isDirectory:YES]];
+        });
+        //success = [_imgConverter convertImages:imgs toType:[[[NSUserDefaults standardUserDefaults] outputImageType] lowercaseString] destinationDirectoryURL:[parentDir URLByAppendingPathComponent:kOutputFolderName isDirectory:YES]];
     }
     
-    return success;
+    return YES;
+    //return success;
 }
 
 - (void)draggingExited:(id<NSDraggingInfo>)sender
@@ -141,6 +146,9 @@
 
 - (void)draggingEnded:(id<NSDraggingInfo>)sender
 {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [[[NSApp delegate] lblProgressText] setStringValue:@"Success! And ready for more!"];
+    });
     _flash = NO;
     _highlight = NO;
     [self setNeedsDisplay:YES];

@@ -5,23 +5,34 @@
 //  Created by Thomas Kober on 5/11/13.
 //  Copyright (c) 2013 tttthomasssss. All rights reserved.
 //
+//  The MIT License (MIT)
+//
+// 	Permission is hereby granted, free of charge, to any person obtaining a copy of
+//	this software and associated documentation files (the "Software"), to deal in the
+//	Software without restriction, including without limitation the rights to use, copy,
+//	modify, merge, publish, distribute, sublicense, and/or sell copies of the Software,
+//	and to permit persons to whom the Software is furnished to do so, subject to the
+//	following conditions:
+//
+//	The above copyright notice and this permission notice shall be included in all copies
+//	or substantial portions of the Software.
+//
+//	THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+//	INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR
+//	PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE
+//	FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+//	OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+//	DEALINGS IN THE SOFTWARE.
 
 #import <Cocoa/Cocoa.h>
 
 @class TKImageConverter;
 
-// TODO: Use NSView instead of NSImageView
-// http://juliuspaintings.co.uk/cgi-bin/paint_css/animatedPaint/072-NSView-drag-and-drop.pl
-// http://stackoverflow.com/questions/4782636/nsview-subviews-interrupting-drag-operation
-// http://stackoverflow.com/questions/1589010/drag-and-drop-app-files-into-nsimageview-and-get-the-file-path
-// http://www.developers-life.com/tutorial-drag-and-drop-file-on-nsimageview.html
-// Display image in nsview
-// http://stackoverflow.com/questions/1257452/drawing-an-image-in-a-nsview
-// http://stackoverflow.com/questions/2203542/drawing-a-nsimage-into-nsview-subclass
-// Draw border
-// http://stackoverflow.com/questions/5004960/adding-border-and-rounded-rect-in-the-nsview
-@interface TKImageView : NSView//NSImageView
-
+@interface TKImageView : NSView {//NSImageView
+@private
+    BOOL _highlight;
+    BOOL _flash;
+}
 @property(strong, readonly, nonatomic) NSImage *image;
 @property(strong, readonly, nonatomic) TKImageConverter *imgConverter;
 

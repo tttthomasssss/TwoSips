@@ -5,6 +5,24 @@
 //  Created by Thomas Kober on 5/11/13.
 //  Copyright (c) 2013 tttthomasssss. All rights reserved.
 //
+//  The MIT License (MIT)
+//
+// 	Permission is hereby granted, free of charge, to any person obtaining a copy of
+//	this software and associated documentation files (the "Software"), to deal in the
+//	Software without restriction, including without limitation the rights to use, copy,
+//	modify, merge, publish, distribute, sublicense, and/or sell copies of the Software,
+//	and to permit persons to whom the Software is furnished to do so, subject to the
+//	following conditions:
+//
+//	The above copyright notice and this permission notice shall be included in all copies
+//	or substantial portions of the Software.
+//
+//	THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+//	INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR
+//	PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE
+//	FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+//	OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+//	DEALINGS IN THE SOFTWARE.
 
 #import "TKImageView.h"
 #import "TKImageConverter.h"
@@ -31,14 +49,27 @@
     [self registerForDraggedTypes:[NSArray arrayWithObjects:NSFilenamesPboardType, NSTIFFPboardType, nil]];
     _image = [NSImage imageNamed:@"drophere.png"];
     _imgConverter = [[TKImageConverter alloc] init];
+    _highlight = NO;
+    _flash = NO;
 }
 
-- (void)drawRect:(NSRect)dirtyRect {
+- (void)drawRect:(NSRect)aRect {
     
     NSRect bounds = [self bounds];
-    [super drawRect:dirtyRect];
-    //[_image compositeToPoint:bounds.origin operation:NSCompositeSourceOver];
+    [super drawRect:aRect];
+    
     [_image drawAtPoint:bounds.origin fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1];
+    
+    if (_flash) {
+        [[NSColor keyboardFocusIndicatorColor] set];
+        [NSBezierPath setDefaultLineWidth:5];
+        [NSBezierPath strokeRect: [self bounds]];
+    } else if (_highlight) {
+        [[NSColor selectedTextBackgroundColor] set];
+        [NSBezierPath setDefaultLineWidth:5];
+        [NSBezierPath strokeRect: [self bounds]];
+    }
+    
 }
 
 - (BOOL)acceptsFirstResponder
@@ -49,14 +80,19 @@
 # pragma mark - NSDraggingDestination Protocol implementation
 - (NSDragOperation)draggingEntered:(id<NSDraggingInfo>)sender
 {
-    [self becomeFirstResponder];
-    /* TODO: Focus Ring Drawing
-    [self becomeFirstResponder];
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self setFocusRingType:NSFocusRingTypeExterior];
-    });
-    */
+    /*
+        Some Useful Drag & Drop Resources
+        - http://www.cocoabuilder.com/archive/cocoa/163984-nswindow-drag-and-drop-focus-ring.html
+        - http://gazapps.com/wp/2011/08/01/drag-and-drop-text-file-on-macos-x-application/
+        -https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/DragandDrop/Tasks/DraggingFiles.html
+     */
+   
+    // Do the highlighting ring thingy
+    _highlight = YES;
+    _flash = NO;
+    [self setNeedsDisplay:YES];
     
+    // To drag or not to drag
     NSPasteboard *thePastboard = [sender draggingPasteboard];
     
     NSDragOperation dragOp = NSDragOperationNone;
@@ -64,7 +100,6 @@
     if ([self validFiles:[thePastboard pasteboardItems]]) {
         dragOp = NSDragOperationCopy;
     }
-    NSLog(@"Dragging entered!");
     
     return dragOp;
 }
@@ -74,39 +109,42 @@
     NSPasteboard *thePasteboard = [sender draggingPasteboard];
     BOOL success = NO;
     
-    NSLog(@"Performing Drag Operation...");
-    
     if ([self validFiles:[thePasteboard pasteboardItems]]) {
         
         NSArray *imgPathURLs = [self getImagePaths:[thePasteboard pasteboardItems]];
-        NSLog(@"IMG PATHS URLS FINISHED!");
         NSArray *imgs = [self getImages:imgPathURLs];
-        NSLog(@"IMGS FINISHED");
         
         NSURL *parentDir = [[imgPathURLs objectAtIndex:0] URLByDeletingLastPathComponent];
         
-        NSLog(@"SELECTED STUFF: %@", [[NSUserDefaults standardUserDefaults] outputImageType]);
-        NSLog(@"IMAGE PATH URLS: %@", imgPathURLs);
-        NSLog(@"PARENT DIR: %@", parentDir);
-        NSLog(@"TARGET DIR: %@", [parentDir URLByAppendingPathComponent:kOutputFolderName isDirectory:YES]);
-        NSLog(@"IMG CONVERTER: %@", _imgConverter);
-        
+        // Probably dispatch async
         success = [_imgConverter convertImages:imgs toType:[[[NSUserDefaults standardUserDefaults] outputImageType] lowercaseString] destinationDirectoryURL:[parentDir URLByAppendingPathComponent:kOutputFolderName isDirectory:YES]];
-        
-        NSLog(@"SUCCESS: %d", success);
     }
-    
-    NSLog(@"Drag Operation finished!");
     
     return success;
 }
 
 - (void)draggingExited:(id<NSDraggingInfo>)sender
 {
-    [self setFocusRingType:NSFocusRingTypeDefault];
-    NSLog(@"Dragging exited!");
+    // Hide the focus ring again
+    _highlight = NO;
+    _flash = NO;
+    [self setNeedsDisplay:YES];
 }
 
+// TODO: The highlighting ends too abruptly - fancify a bit
+- (void)concludeDragOperation:(id<NSDraggingInfo>)sender
+{
+    _flash = YES;
+    _highlight = NO;
+    [self setNeedsDisplay:YES];
+}
+
+- (void)draggingEnded:(id<NSDraggingInfo>)sender
+{
+    _flash = NO;
+    _highlight = NO;
+    [self setNeedsDisplay:YES];
+}
 
 @end
 
@@ -127,7 +165,6 @@
 
 - (BOOL)validFiles:(NSArray *)pasteboardItems
 {
-    NSLog(@"CHECKING VALIDFILES...");
     BOOL valid = NO;
     NSInteger i = 0;
     NSURL *theURL = nil;
@@ -145,7 +182,6 @@
         i++;
     }
     
-    NSLog(@"VALID FILES CHECKING FINISHED: %d", valid);
     return valid;
 }
 
@@ -157,7 +193,7 @@
 
 - (NSString *)predicateString
 {
-    // Even uglier but how cares???
+    // Even uglier but who cares???
     return @"self ENDSWITH[c] '.bmp' OR self ENDSWITH[c] '.gif' OR self ENDSWITH[c] '.jpg' OR self ENDSWITH[c] '.jpeg' OR self ENDSWITH[c] '.png' OR self ENDSWITH[c] '.tif' OR self ENDSWITH[c] '.tiff'";
 }
 
